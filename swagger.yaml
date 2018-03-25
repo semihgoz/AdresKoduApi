@@ -1,0 +1,168 @@
+swagger: "2.0"
+info:
+  description: "http://adreskodu.dask.gov.tr/ Sistesi üzerine inşa edilmiş bir api"
+  version: "1.0.0"
+  title: "AdresKoduApi"
+
+host: "localhost:3000"
+basePath: "/api"
+tags:
+- name: "AdresKodu-Kod"
+  description: "Adres Kodunu öğrenmek için adım adım istekler"
+
+- name: "Kod-AdresKodu"
+  description: "Adres Öğrenmek için adım adım istekler"
+
+schemes:
+- "http"
+paths:
+
+  /il:
+    get:
+      tags: 
+      - "AdresKodu-Kod"
+      summary: "Ik kodu ile birlikte Türkiyedeki tüm illeri getirir"
+      description: "Ik kodu ile birlikte Türkiyedeki tüm illeri getirir"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Api"
+  
+  /ilce/{ilId}:
+    get:
+      tags:
+      - "AdresKodu-Kod"
+      summary: "Belirli ile ait ilçeleri getirir"
+      description: "Parametre olarak verilen il id bilgisi ile yapılan bu istek belirli ile 
+      ait tüm ilçeleri ilçe kodu ve ilçe isimi ile getirir"
+      parameters:
+      - name: "ilId"
+        in: "path"
+        description: "ID of pet to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Api"
+            
+  /bucakKoy/{ilceId}:
+    get:
+      tags:
+      - "AdresKodu-Kod"
+      summary: "Belirli ileceye ait bucak veya koyleri getirir"
+      description: "Parametre olarak verilen ilce id bilgisi ile yapılan bu istek belirli ileceye 
+      ait tüm bucak veya köyleri kodu ve isimileri ile birlikte getirir"
+      parameters:
+      - name: "ilceId"
+        in: "path"
+        description: "İlçe numarasını giriniz"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Api"
+
+  /mahalle/{bucakKoyId}:
+    get:
+      tags:
+      - "AdresKodu-Kod"
+      summary: "Belirli ileceye ait bucak veya koyleri getirir"
+      description: "Parametre olarak verilen ilce id bilgisi ile yapılan bu istek belirli ileceye 
+      ait tüm bucak veya köyleri kodu ve isimileri ile birlikte getirir"
+      parameters:
+      - name: "bucakKoyId"
+        in: "path"
+        description: "Bucak veya köy numarasını giriniz"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Api"
+          
+  /sokak/{mahalleId}:
+    get:
+      tags:
+      - "AdresKodu-Kod"
+      summary: "Belirli ileceye ait bucak veya koyleri getirir"
+      description: "Parametre olarak verilen ilce id bilgisi ile yapılan bu istek belirli ileceye 
+      ait tüm bucak veya köyleri kodu ve isimileri ile birlikte getirir"
+      parameters:
+      - name: "mahalleId"
+        in: "path"
+        description: "Mahalle numarasını giriniz"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Api"
+          
+  /bina/{sokakId}:
+    get:
+      tags:
+      - "AdresKodu-Kod"
+      summary: "Belirli ileceye ait bucak veya koyleri getirir"
+      description: "Parametre olarak verilen ilce id bilgisi ile yapılan bu istek belirli ileceye 
+      ait tüm bucak veya köyleri kodu ve isimileri ile birlikte getirir"
+      parameters:
+      - name: "sokakId"
+        in: "path"
+        description: "Cadde, Sokak, Bulvar veya Meydan numarasını giriniz "
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Api"
+
+  /daire/{binaId}:
+    get:
+      tags:
+      - "AdresKodu-Kod"
+      summary: "Belirli ileceye ait bucak veya koyleri getirir"
+      description: "Parametre olarak verilen ilce id bilgisi ile yapılan bu istek belirli ileceye 
+      ait tüm bucak veya köyleri kodu ve isimileri ile birlikte getirir"
+      parameters:
+      - name: "binaId"
+        in: "path"
+        description: "Bina numarasını giriniz"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Api"
+
+definitions:
+  Api:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
+        pureId:
+          type: "integer"
+          format: "int64"
+        type:
+          type: "string"
+        
+
